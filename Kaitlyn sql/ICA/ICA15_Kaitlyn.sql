@@ -65,7 +65,7 @@ where course_desc like '%SQL%'
 select class_desc as 'Class',
 	s.first_name + ' ' + s.last_name as 'Student'
 from Classes as C
-left outer join class_to_student as cts 
+inner join class_to_student as cts 
 on c.class_id = cts.class_id
 inner join Students as S
 on cts.student_id = s.student_id
@@ -88,10 +88,11 @@ go
 -- D - Delete all students that have been assigned to your new class, do this without a 
 --     variable, rather perform a join with proper filtering for this delete
 delete class_to_student
-where class_id like
-(select class_id 
-from Classes
-where class_desc like 'Beware the optimizer')
+from 
+	class_to_student as cts 
+	inner join Classes as c 
+	on c.class_id = cts.class_id
+where class_desc like 'Beware the optimizer'
 -- C - declare, query and set class id to your new class based on above filter.
 --     declare, query and save the linked course and instructor ( use in B and A )
 --     Delete the new class
@@ -131,7 +132,7 @@ where course_desc like '%SQL%'
 select class_desc as 'Class',
 	s.first_name + ' ' + s.last_name as 'Student'
 from Classes as C
-left outer join class_to_student as cts 
+inner join class_to_student as cts 
 on c.class_id = cts.class_id
 inner join Students as S
 on cts.student_id = s.student_id

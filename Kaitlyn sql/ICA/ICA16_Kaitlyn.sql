@@ -33,7 +33,7 @@ go
 -- Update the score of all results which have a real percentage of less than 50
 -- The score should be increased by 10% of the max score value
 -- Use ica13_06 select statement to verify pre and post update values,
---  put one select before and after your update call.
+-- put one select before and after your update call.
 declare @ID as int = 123
 
 select 
@@ -43,9 +43,9 @@ select
 	round(coalesce(count(score),0),2) as 'Scores'
 from 
 	Assignment_type AT 
-	left outer join Requirements Req 
+	inner join Requirements Req 
 	on AT.ass_type_id = Req.ass_type_id
-	left outer join Results R
+    inner join Results R
 	on R.req_id = Req.req_id
 where R.class_id = @ID
 group by ass_type_desc
@@ -65,9 +65,9 @@ select
 	round(coalesce(count(score),0),2) as 'Scores'
 from 
 	Assignment_type AT 
-	left outer join Requirements Req 
+	inner join Requirements Req 
 	on AT.ass_type_id = Req.ass_type_id
-	left outer join Results R
+	inner join Results R
 	on R.req_id = Req.req_id
 where R.class_id = @ID
 group by ass_type_desc
